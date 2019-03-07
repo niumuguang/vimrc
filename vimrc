@@ -1,22 +1,24 @@
 " vundle 环境设置
 filetype off
 
-" ls 20190213* -l |grep "^-"|wc -l
-" set encoding=utf-8
-" set fenc=cp936
-" set fileencodings=cp936,ucs-bom,utf-8
-" " if(g:iswindows==1)
-" "     source $VIMRUNTIME/delmenu.vim
-" "     source $VIMRUNTIME/menu.vim
-" "     language messages zh_CN.utf-8
-" " endif
-" if v:lang =~? '^zh\|ja\|ko'
-"     set ambiwidth=double
-" endif
-" set nobomb
 
-set path+=/home/lio/GitHub/Midas/MKPoseidon/Ctp/inc/
-set path+=/home/lio.niu/Program/Git/boost_1_67_0/include/
+set encoding=utf-8
+set fenc=cp936
+set fileencodings=cp936,ucs-bom,utf-8
+" if(g:iswindows==1)
+"     source $VIMRUNTIME/delmenu.vim
+"     source $VIMRUNTIME/menu.vim
+"     language messages zh_CN.utf-8
+" endif
+if v:lang =~? '^zh\|ja\|ko'
+    set ambiwidth=double
+endif
+set nobomb
+
+set path+=/home/muguang/corder/tradequotes/
+set path+=/home/muguang/corder/tradequotes
+set path+=/home/muguang/SVN/trunk/corder/Trade2.0/ThirdLib
+set path+=/home/muguang/corder/boost_1_67_0/include
 set path+=/usr/local/include
 
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -25,8 +27,8 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'tomasr/molokai'
-"Plugin 'vim-scripts/phd'
-"Plugin 'Lokaltog/vim-powerline'
+Plugin 'vim-scripts/phd'
+Plugin 'Lokaltog/vim-powerline'
 Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'derekwyatt/vim-fswitch'
@@ -61,21 +63,10 @@ Plugin 'https://github.com/lekv/vim-clewn.git'
 "Plugin 'vimgdb'
 "Plugin 'fking/ag.vim'
 Plugin 'https://github.com/907th/vim-auto-save'
-
-Plugin 'Pydiction'
-
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
 Plugin 'ctrlpvim/ctrlp.vim'
-
-" Plugin 'bling/vim-airline'
-" Plugin 'vim-airline/vim-airline-themes'
-
-" Plugin 'bling/vim-airline'
-"
-Plugin 'DoxygenToolkit.vim'
-"
-
+Plugin 'tacahiroy/ctrlp-funky'
+Plugin 'Pydiction'
+Plugin 'qpkorr/vim-bufkill'
 " 插件列表结束
 call vundle#end()
 filetype plugin indent on
@@ -87,9 +78,6 @@ colorscheme molokai
 "colorscheme phd
 
 
-let g:DoxygenToolkit_authorName="niumuguang"
-let g:DoxygenToolkit_briefTag_funcName="yes"
-map <leader>da :DoxAuthor<CR>
 
 " 禁止光标闪烁
 " set gcr=a:block-blinkon0
@@ -235,11 +223,10 @@ nmap <silent> <Leader>sw :FSHere<cr>
 
 
 " 显示/隐藏 MiniBufExplorer 窗口
-nmap <Leader><Leader>o :MBEOpen<cr>
-nmap <Leader><Leader>c :MBEClose<cr>
+" map <Leader>bl :MBEToggle<cr>
 " buffer 切换快捷键
-" nmap <C-Tab> :MBEbn<cr>
-" nmap <C-S-Tab> :MBEbp<cr>
+"map <C-Tab> :MBEbn<cr>
+"map <C-S-Tab> :MBEbp<cr>
 
 
 " 设置环境保存项
@@ -329,11 +316,10 @@ map <Leader><leader>l <Plug>(easymotion-lineforward)
 " 重复上一次操作, 类似repeat插件, 很强大
 map <Leader><leader>. <Plug>(easymotion-repeat)
 " insert 模式移动配置
-
-imap <C-k> <Up>
-imap <C-j> <Down>
-imap <C-f> <Right>
-imap <C-d> <Left>
+inoremap <C-k> <Up>
+inoremap <C-j> <Down>
+inoremap <C-f> <Right>
+inoremap <C-d> <Left>
 inoremap <C-q> <PageUp>
 inoremap <C-z> <PageDown>
 inoremap <C-a> <Home>
@@ -344,85 +330,34 @@ let g:pydiction_location = '~/.vim/bundle/Pydiction/complete-dict'
 
 " 自动保存
 let g:auto_save = 60
-" let g:auto_save_events = ["InsertLeave", "TextChanged", "TextChangedI","CursorHoldI", "CompleteDone"]
+let g:auto_save_events = ["InsertLeave", "TextChanged", "TextChangedI","CursorHoldI", "CompleteDone"]
 "
 
 
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
 
-" set laststatus=2
-" set t_Co=256
-" set g:airline_theme="durant"
+let g:ctrlp_map = '<leader>p'
+let g:ctrlp_cmd = 'CtrlP'
+map <leader>f :CtrlPMRU<CR>
+let g:ctrlp_custom_ignore = {
+    \ 'dir':  '\v[\/]\.(git|hg|svn|rvm)$',
+    \ 'file': '\v\.(exe|so|dll|zip|tar|tar.gz|pyc)$',
+    \}
+let g:ctrlp_working_path_mode=0
+let g:ctrlp_match_window_bottom=1
+let g:ctrlp_max_height=15
+let g:ctrlp_match_window_reversed=0
+let g:ctrlp_mruf_max=500
+let g:ctrlp_follow_symlinks=1
 
-" let g:airline#extensions#tabline#enabled = 1
-" let g:airline#extensions#tabline#left_sep = ' '
-" let g:airline#extensions#tabline#left_alt_sep = '|'
-"
-" let g:airline#extensions#tabline#enabled = 1
-" let g:airline#extensions#tabline#left_sep = ' '
-" let g:airline#extensions#tabline#left_alt_sep = '|'
+nnoremap <Leader>fu :CtrlPFunky<Cr>
+" narrow the list down with a word under cursor
+nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
+let g:ctrlp_funky_syntax_highlight = 1
 
+let g:ctrlp_extensions = ['funky']
 
-" let g:airline_theme="default"
-"
-" " "这个是安装字体后 必须设置此项"
-" let g:airline_powerline_fonts = 1
-" let g:airline#extensions#tabline#buffer_nr_show = 1
-" "
- "设置切换Buffer快捷键"
-nnoremap <C-N> :bn<CR>
-nnoremap <C-P> :bp<CR>
-"
-"  " 关闭状态显示空白符号计数,这个对我用处不大"
-"  let g:airline#extensions#whitespace#enabled = 0
-"  let g:airline#extensions#whitespace#symbol = '!'
-"
-" " 在Gvim中我设置了英文用Hermit， 中文使用 YaHei Mono "
-" if has('win32')
-"   set guifont=Hermit:h13
-"   set guifontwide=Microsoft_YaHei_Mono:h12
-" endif
+" map <C-c> :BD<cr>
+map <Leader>bd :BD<cr>
 
-
-
-
-"--- 跨终端粘贴
-let g:copy_file=$HOME . "/.vim_copybuffer"
-function Write_copy_file()
-    "缓冲区内容写入文件
-    let lines=split@(", "\n")
-    call writefile(lines,g:copy_file)
-endfunction
-
-
-function Read_copy_file()
-    "将copy_file文件写入@缓冲区，并且粘贴
-    let l:buf=readfile(g:copy_file)
-    let @"=join(l:buf,"\n")
-    normal ""p
-endfunction
-
-nmap <silent> ;y :call Write_copy_file()<Enter>
-nmap <silent> ;p :call Read_copy_file()<Enter>
-
-
-set hidden " 避免必须保存修改才可以跳转buffer
-
-" buffer快速导航
-nnoremap <Leader>b :bp<CR>
-nnoremap <Leader>f :bn<CR>
-"
-" " 查看buffers
-" nnoremap <Leader>l :ls<CR>
-"
-"" 通过索引快速跳转
-nnoremap <Leader>1 :1b<CR>
-nnoremap <Leader>2 :2b<CR>
-nnoremap <Leader>3 :3b<CR>
-nnoremap <Leader>4 :4b<CR>
-nnoremap <Leader>5 :5b<CR>
-nnoremap <Leader>6 :6b<CR>
-nnoremap <Leader>7 :7b<CR>
-nnoremap <Leader>8 :8b<CR>
-nnoremap <Leader>9 :9b<CR>
-nnoremap <Leader>0 :10b<CR>"
-" "
