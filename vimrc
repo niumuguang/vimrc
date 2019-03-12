@@ -252,7 +252,8 @@ let g:AutoPairsMapSpace = 1
 
 
 " ycm 指定 ycm_extra_conf.py
-let g:ycm_global_ycm_extra_conf =  '~/.vim/bundle/YouCompleteMe/third_party/ycmd/.ycm_extra_conf.py'
+" let g:ycm_global_ycm_extra_conf =  '~/.vim/bundle/YouCompleteMe/third_party/ycmd/.ycm_extra_conf.py'
+let g:ycm_global_ycm_extra_conf =  '~/.ycm_extra_conf.py'
 
 
 
@@ -329,8 +330,9 @@ inoremap <C-x> <Del>
 let g:pydiction_location = '~/.vim/bundle/Pydiction/complete-dict'
 
 " 自动保存
-let g:auto_save = 60
-let g:auto_save_events = ["InsertLeave", "TextChanged", "TextChangedI","CursorHoldI", "CompleteDone"]
+let g:auto_save = 120
+" let g:auto_save_events = ["InsertLeave", "TextChanged", "TextChangedI","CursorHoldI", "CompleteDone"]
+" let g:auto_save_events = [ "TextChanged", "TextChangedI","CursorHoldI", "CompleteDone"]
 "
 
 
@@ -361,3 +363,71 @@ let g:ctrlp_extensions = ['funky']
 " map <C-c> :BD<cr>
 map <Leader>bd :BD<cr>
 
+" let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
+" let g:ycm_add_preview_to_completeopt = 0
+" let g:ycm_show_diagnostics_ui = 0
+" let g:ycm_server_log_level = 'info'
+" let g:ycm_min_num_identifier_candidate_chars = 8
+" let g:ycm_collect_identifiers_from_comments_and_strings = 1
+" let g:ycm_complete_in_strings=1
+" let g:ycm_key_invoke_completion = '<c-z>'
+" set completeopt=menu,menuone
+"
+" noremap <c-p> <NOP>
+"
+" let g:ycm_semantic_triggers =  {
+"             \ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
+"             \ 'cs,lua,javascript': ['re!\w{2}'],
+"             \ }
+"
+" let g:ycm_filetype_whitelist = {
+"             \ "c":1,
+"             \ "cpp":1,
+"             \ "objc":1,
+"             \ "sh":1,
+"             \ "zsh":1,
+"             \ "zimbu":1,
+"             \ }
+"
+
+" YouCompleteMe
+" " Python Semantic Completion
+let g:ycm_python_binary_path = '/usr/bin/python2'
+" " C family Completion Path
+let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
+" " 跳转快捷键
+" nnoremap <c-k> :YcmCompleter GoToDeclaration<CR>|
+" nnoremap <c-h> :YcmCompleter GoToDefinition<CR>|
+" nnoremap <c-j> :YcmCompleter GoToDefinitionElseDeclaration<CR>|
+
+" " 停止提示是否载入本地ycm_extra_conf文件
+let g:ycm_confirm_extra_conf = 1
+" " 语法关键字补全
+let g:ycm_seed_identifiers_with_syntax = 4
+" " 开启 YCM 基于标签引擎
+let g:ycm_collect_identifiers_from_tags_files = 0
+" " 从第2个键入字符就开始罗列匹配项
+let g:ycm_min_num_of_chars_for_completion=4
+" " 在注释输入中也能补全
+let g:ycm_complete_in_comments = 0
+" " 在字符串输入中也能补全
+let g:ycm_complete_in_strings = 0
+" " 注释和字符串中的文字也会被收入补全
+let g:ycm_collect_identifiers_from_comments_and_strings = 1
+" " 弹出列表时选择第1项的快捷键(默认为<TAB>和<Down>)
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+" " 弹出列表时选择前1项的快捷键(默认为<S-TAB>和<UP>)
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+" " 主动补全, 默认为<C-Space>
+" let g:ycm_key_invoke_completion = ['<C-Space>']
+" " 停止显示补全列表(防止列表影响视野), 可以按<C-Space>重新弹出
+let g:ycm_key_list_stop_completion = ['<C-y>']
+" 关闭诊断显示功能(已经使用了ale进行异步语法检查)
+let g:ycm_show_diagnostics_ui = 0
+" Go to definition else declaration
+" nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
+" " 主动调用补全
+let g:ycm_key_invoke_completion = '<C-a>'
+
+nnoremap <leader>y :let g:ycm_auto_trigger=0<CR>                " turn off YCM
+nnoremap <leader>Y :let g:ycm_auto_trigger=1<CR>                " turn on YCM
